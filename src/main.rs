@@ -10,10 +10,6 @@ use std::sync::Arc;
 mod run;
 
 
-/// Error returned by the application itself.
-pub type MainError = &'static str;
-
-
 /// Initializes Vulkan through the [`vulkano`] library, creating a Vulkan [`Device`] and [`Queue`].
 /// 
 /// # Panics
@@ -43,13 +39,15 @@ fn init_vulkan() -> (Arc<Device>, Arc<Queue>) {
 }
 
 
-fn main() -> Result<(), MainError> {
+fn main(){
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new()
         .build(&event_loop)
         .unwrap();
     
+    window.set_title("Vulkan Template");
+    
     let (device, queue) = init_vulkan();
 
-    run::run(event_loop, window, device, queue)
+    run::run(event_loop, window, device, queue);
 }
